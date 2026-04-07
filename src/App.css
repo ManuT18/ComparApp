@@ -166,11 +166,13 @@ header {
 
 .price-cell {
   font-family: var(--font-inter);
+  text-align: center;
 }
 
 .price-value-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .price-number {
@@ -215,4 +217,42 @@ header {
   padding: 4rem 2rem;
   color: var(--text-muted);
   font-size: 1.2rem;
+}
+
+/* --- FILTERS --- */
+.filters-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.filter-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-color);
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-family: var(--font-inter);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-weight: 500;
 }

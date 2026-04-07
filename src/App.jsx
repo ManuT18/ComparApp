@@ -7,6 +7,16 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [filterMultiple, setFilterMultiple] = useState(false);
+
+  const displayResults = results.filter(item => {
+    if (!filterMultiple) return true;
+    let count = 0;
+    if (item.vea?.inStock && item.vea?.price !== null) count++;
+    if (item.chango?.inStock && item.chango?.price !== null) count++;
+    if (item.coope?.inStock && item.coope?.price !== null) count++;
+    return count >= 2;
+  });
 
   const handleSearch = async (query) => {
     if (!query.trim()) return;
@@ -39,10 +49,23 @@ function App() {
       <main className="glass-panel" style={{ padding: '2rem' }}>
         <SearchBar onSearch={handleSearch} isLoading={loading} />
         
+        {results.length > 0 && !loading && (
+          <div className="filters-container">
+            <label className="filter-toggle">
+              <input 
+                type="checkbox" 
+                checked={filterMultiple} 
+                onChange={(e) => setFilterMultiple(e.target.checked)} 
+              />
+              <span className="toggle-label">Ocultar productos que solo están en 1 supermercado</span>
+            </label>
+          </div>
+        )}
+        
         {loading ? (
           <div className="loading-state">Buscando los mejores precios... esto puede demorar unos segundos.</div>
         ) : hasSearched ? (
-           <PriceTable data={results} />
+           <PriceTable data={displayResults} />
         ) : (
           <div className="empty-state">Ingresa un producto (ej. "leche", "fideos", "harina") para comparar precios.</div>
         )}
