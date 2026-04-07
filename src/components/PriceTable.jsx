@@ -62,7 +62,10 @@ const PriceTable = ({ data }) => {
             
             return (
               <tr key={index}>
-                <td className="brand-cell">{item.brand}</td>
+                <td className="brand-cell">
+                  <div>{item.brand}</div>
+                  <div style={{fontSize: '0.85rem', fontWeight: 'normal', color: 'var(--text-muted)', marginTop: '0.2rem'}}>{item.name}</div>
+                </td>
                 <td className="price-cell">{renderCell(item.vea, minPrice)}</td>
                 <td className="price-cell">{renderCell(item.chango, minPrice)}</td>
                 <td className="price-cell">{renderCell(item.coope, minPrice)}</td>

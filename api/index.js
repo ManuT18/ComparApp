@@ -26,8 +26,10 @@ async function fetchFromSupermarket(supermarket, query) {
             // Find the price. VTEX puts it inside items[0].sellers[0].commertialOffer.Price
             let price = null;
             let stock = false;
+            let ean = null;
             
             if (p.items && p.items.length > 0) {
+                ean = p.items[0].ean || null;
                 const seller = p.items[0].sellers.find(s => s.sellerDefault) || p.items[0].sellers[0];
                 if (seller && seller.commertialOffer) {
                     price = seller.commertialOffer.Price;
@@ -41,7 +43,8 @@ async function fetchFromSupermarket(supermarket, query) {
                 brand: p.brand ? p.brand.trim().toUpperCase() : 'DESCONOCIDA',
                 price: price,
                 inStock: stock,
-                supermarket: supermarket.id
+                supermarket: supermarket.id,
+                ean: ean
             };
         });
         
@@ -72,13 +75,24 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
     // Flatten array
     const allProducts = resultsArray.flat();
 
-    // Group by brand
-    const groupedByBrand = {};
+    // Group by item
+    const groupedProducts = {};
+
+    const normalize = (text) => {
+        if (!text) return '';
+        return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+    };
     
     allProducts.forEach(product => {
-        if (!groupedByBrand[product.brand]) {
-            groupedByBrand[product.brand] = {
+        const eanKey = product.ean ? `EAN_${product.ean}` : null;
+        const nameKey = `${normalize(product.brand)}_${normalize(product.name)}`;
+        const groupKey = eanKey || nameKey;
+
+        if (!groupedProducts[groupKey]) {
+            groupedProducts[groupKey] = {
+                id: groupKey,
                 brand: product.brand,
+                name: product.name,
                 vea: { price: null, inStock: false, name: '' },
                 chango: { price: null, inStock: false, name: '' },
                 coope: { price: null, inStock: false, name: '' }
@@ -86,10 +100,10 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
         }
         
         // If we haven't assigned a product for this supermarket, or if this one is cheaper
-        const currentProd = groupedByBrand[product.brand][product.supermarket];
+        const currentProd = groupedProducts[groupKey][product.supermarket];
         if (product.price && product.inStock) {
             if (currentProd.price === null || product.price < currentProd.price) {
-                groupedByBrand[product.brand][product.supermarket] = {
+                groupedProducts[groupKey][product.supermarket] = {
                     price: product.price,
                     inStock: product.inStock,
                     name: product.name
@@ -98,12 +112,12 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
         }
     });
 
-    // Convert object to array and filter out brands that don't have stock anywhere
-    const sortedBrands = Object.values(groupedByBrand).filter(item => 
+    // Convert object to array and filter out products that don't have stock anywhere
+    const sortedProducts = Object.values(groupedProducts).filter(item => 
         (item.vea.price !== null || item.chango.price !== null || item.coope.price !== null)
-    ).sort((a, b) => a.brand.localeCompare(b.brand));
+    ).sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name));
 
-    res.json(sortedBrands);
+    res.json(sortedProducts);
 });
 
 export default app;
