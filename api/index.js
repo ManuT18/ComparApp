@@ -12,48 +12,63 @@ const SUPERMARKETS = [
 ];
 
 async function fetchFromSupermarket(supermarket, query) {
-    try {
-        const response = await axios.get(`${supermarket.url}${encodeURIComponent(query)}?_from=0&_to=149`, {
-            timeout: 8000,
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'application/json, text/plain, */*',
-                'Referer': 'https://www.google.com/'
-            }
-        });
-        
-        const products = response.data.map(p => {
-            // Find the price. VTEX puts it inside items[0].sellers[0].commertialOffer.Price
-            let price = null;
-            let stock = false;
-            let ean = null;
-            
-            if (p.items && p.items.length > 0) {
-                ean = p.items[0].ean || null;
-                const seller = p.items[0].sellers.find(s => s.sellerDefault) || p.items[0].sellers[0];
-                if (seller && seller.commertialOffer) {
-                    price = seller.commertialOffer.Price;
-                    stock = seller.commertialOffer.AvailableQuantity > 0;
-                }
-            }
+    const pageSize = 50;
+    const totalToFetch = 150;
+    let allProducts = [];
 
-            return {
-                id: p.productId,
-                name: p.productName,
-                brand: p.brand ? p.brand.trim().toUpperCase() : 'DESCONOCIDA',
-                price: price,
-                inStock: stock,
-                supermarket: supermarket.id,
-                ean: ean
-            };
-        });
-        
-        return products;
-    } catch (error) {
-        console.error(`Error fetching from ${supermarket.name}:`, error.message);
+    for (let from = 0; from < totalToFetch; from += pageSize) {
+        const to = from + pageSize - 1;
+        try {
+            const response = await axios.get(`${supermarket.url}${encodeURIComponent(query)}?_from=${from}&_to=${to}`, {
+                timeout: 8000,
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'application/json, text/plain, */*'
+                }
+            });
+
+            if (!response.data || response.data.length === 0) break;
+
+            const products = response.data.map(p => {
+                let price = null;
+                let stock = false;
+                let ean = null;
+                
+                if (p.items && p.items.length > 0) {
+                    ean = p.items[0].ean || null;
+                    const seller = p.items[0].sellers.find(s => s.sellerDefault) || p.items[0].sellers[0];
+                    if (seller && seller.commertialOffer) {
+                        price = seller.commertialOffer.Price;
+                        stock = seller.commertialOffer.AvailableQuantity > 0;
+                    }
+                }
+
+                return {
+                    id: p.productId,
+                    name: p.productName,
+                    brand: p.brand ? p.brand.trim().toUpperCase() : 'DESCONOCIDA',
+                    price: price,
+                    inStock: stock,
+                    supermarket: supermarket.id,
+                    ean: ean
+                };
+            });
+
+            allProducts.push(...products);
+            
+            // If we got fewer items than requested, it means there are no more
+            if (response.data.length < pageSize) break;
+
+        } catch (error) {
+            console.error(`Error fetching from ${supermarket.id} (from ${from} to ${to}):`, error.message);
+            break; // Stop fetching this supermarket if one page fails
+        }
+    }
+    
+    if (allProducts.length === 0) {
         return [{
             id: 'error',
-            name: `Error de conexión: ${error.message}`,
+            name: `Error de conexión o sin resultados`,
             brand: 'SISTEMA',
             price: 0,
             inStock: true,

@@ -1,0 +1,5 @@
+Fix: Implementar paginación para 150 ítems
+
+- Se descubrió que la API de Vea/Chango tiene un límite máximo de 50 ítems por solicitud.
+- Se modificó el backend para realizar 3 solicitudes secuenciales de 50 ítems cada una hasta alcanzar el límite de 150 solicitado por el usuario.
+- Esto soluciona el error 400 que hacía que no aparecieran resultados.
