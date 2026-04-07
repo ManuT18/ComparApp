@@ -144,6 +144,12 @@ header {
   border: 2px solid #007DCE;
 }
 
+.badge-carrefour {
+  background-color: #0038A8;
+  color: #FFFFFF;
+  border: 2px solid #ED1C24;
+}
+
 .badge-coope {
   background-color: #0D488E;
   color: #FFFFFF;

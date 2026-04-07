@@ -1,4 +1,6 @@
-Revert: Volver al límite de 50 ítems por búsqueda
+Feature: Agregar Carrefour a la lista de supermercados
 
-- Se eliminó la lógica de paginación múltiple.
-- Se restauró la solicitud simple de 50 ítems para asegurar la estabilidad en producción.
+- Se añadió Carrefour a los supermercados consultados en el backend.
+- Se actualizó la tabla de precios para incluir la columna de Carrefour.
+- Se agregaron los estilos visuales para el distintivo (badge) de Carrefour.
+- Se verificó la conexión con la API de Carrefour (VTEX).

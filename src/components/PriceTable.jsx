@@ -50,10 +50,11 @@ const PriceTable = ({ data }) => {
       <table className="price-table">
         <thead>
           <tr>
-            <th style={{ width: '25%' }}>Marca / Producto</th>
-            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-vea">VEA</div></th>
-            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-chango">Chango Más</div></th>
-            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-coope">Cooperativa</div></th>
+            <th>Marca / Producto</th>
+            <th><div className="sup-badge badge-vea">VEA</div></th>
+            <th><div className="sup-badge badge-chango">Chango Más</div></th>
+            <th><div className="sup-badge badge-carrefour">Carrefour</div></th>
+            <th><div className="sup-badge badge-coope">Cooperativa</div></th>
           </tr>
         </thead>
         <tbody>
@@ -68,6 +69,7 @@ const PriceTable = ({ data }) => {
                 </td>
                 <td className="price-cell">{renderCell(item.vea, minPrice)}</td>
                 <td className="price-cell">{renderCell(item.chango, minPrice)}</td>
+                <td className="price-cell">{renderCell(item.carrefour, minPrice)}</td>
                 <td className="price-cell">{renderCell(item.coope, minPrice)}</td>
               </tr>
             );

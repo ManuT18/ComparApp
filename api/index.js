@@ -7,8 +7,9 @@ app.use(cors());
 
 const SUPERMARKETS = [
     { id: 'vea', name: 'Vea', url: 'https://www.vea.com.ar/api/catalog_system/pub/products/search/' },
-    { id: 'chango', name: 'Chango Más', url: 'https://www.masonline.com.ar/api/catalog_system/pub/products/search/' }
-    // { id: 'coope', name: 'Cooperativa Obrera', url: 'https://www.lacoopeencasa.coop/api/catalog_system/pub/products/search/' }
+    { id: 'chango', name: 'Chango Más', url: 'https://www.masonline.com.ar/api/catalog_system/pub/products/search/' },
+    { id: 'carrefour', name: 'Carrefour', url: 'https://www.carrefour.com.ar/api/catalog_system/pub/products/search/' },
+    { id: 'coope', name: 'Cooperativa', url: 'https://lacoopeencasa.coop/api/catalog_system/pub/products/search/' }
 ];
 
 async function fetchFromSupermarket(supermarket, query) {
@@ -119,6 +120,7 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
                 ean: product.ean,
                 vea: { price: null, inStock: false, name: '' },
                 chango: { price: null, inStock: false, name: '' },
+                carrefour: { price: null, inStock: false, name: '' },
                 coope: { price: null, inStock: false, name: '' }
             };
             groupedGroups.push(targetGroup);
@@ -139,7 +141,7 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
 
     // Filter out products that don't have stock anywhere
     const sortedProducts = groupedGroups.filter(item => 
-        (item.vea.price !== null || item.chango.price !== null || item.coope.price !== null)
+        (item.vea.price !== null || item.chango.price !== null || item.carrefour.price !== null || item.coope.price !== null)
     ).sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name));
 
     res.json(sortedProducts);
