@@ -30,7 +30,7 @@ const PriceTable = ({ data }) => {
   // Render a cell for the supermarket
   const renderCell = (supData, minPrice) => {
     if (!supData.inStock || supData.price === null) {
-      return <span className="tag-out">Agotado/No Encontrado</span>;
+      return <span className="tag-out">No encontrado</span>;
     }
     
     const isBestPrice = supData.price === minPrice;

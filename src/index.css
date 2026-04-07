@@ -33,8 +33,8 @@
   --font-outfit: 'Outfit', sans-serif;
   
   /* ESTADO DE PRODUCTO */
-  --status-out-bg: rgba(239, 68, 68, 0.1);
-  --status-out-text: #ef4444;
+  --status-out-bg: rgba(255, 255, 255, 0.1);
+  --status-out-text: #9ca3af;
   --status-win-bg: rgba(34, 197, 94, 0.15);
 }
 

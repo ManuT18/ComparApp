@@ -89,10 +89,8 @@ header {
   overflow-x: auto;
   overflow-y: hidden;
   border-radius: var(--radius-lg);
-  background-color: rgba(255, 255, 255, 0.08); /* Frosted lively overlay */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #1c1e24; /* Gris oscuro para la tabla restaurado */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .price-table {
