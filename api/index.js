@@ -13,7 +13,7 @@ const SUPERMARKETS = [
 
 async function fetchFromSupermarket(supermarket, query) {
     try {
-        const response = await axios.get(`${supermarket.url}${encodeURIComponent(query)}?_from=0&_to=49`, {
+        const response = await axios.get(`${supermarket.url}${encodeURIComponent(query)}?_from=0&_to=149`, {
             timeout: 8000,
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
