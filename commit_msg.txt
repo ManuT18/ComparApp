@@ -1,6 +1,6 @@
-Feature: Agregar Carrefour a la lista de supermercados
+Docs: Actualizar README con nuevas funcionalidades y eliminar seccion de instalacion
 
-- Se añadió Carrefour a los supermercados consultados en el backend.
-- Se actualizó la tabla de precios para incluir la columna de Carrefour.
-- Se agregaron los estilos visuales para el distintivo (badge) de Carrefour.
-- Se verificó la conexión con la API de Carrefour (VTEX).
+- Se añadió Carrefour a la lista de supermercados oficiales.
+- Se actualizó la descripción de funcionalidades (Agrupamiento Híbrido, Glassmorphism, Tema Cherry).
+- Se eliminó la sección de instalación local a pedido del usuario.
+- Se simplificó la estructura general de la documentación.
