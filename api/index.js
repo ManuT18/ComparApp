@@ -75,35 +75,69 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
     // Flatten array
     const allProducts = resultsArray.flat();
 
-    // Group by item
-    const groupedProducts = {};
+    // Group by Hybrid Math (EAN + Fuzzy Jaccard)
+    const groupedGroups = [];
 
     const normalize = (text) => {
         if (!text) return '';
         return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
     };
+
+    const calculateSimilarity = (name1, name2) => {
+        const set1 = new Set(normalize(name1).split(' ').filter(w => w.length > 1));
+        const set2 = new Set(normalize(name2).split(' ').filter(w => w.length > 1));
+        
+        if (set1.size === 0 && set2.size === 0) return 1;
+        if (set1.size === 0 || set2.size === 0) return 0;
+
+        let intersection = 0;
+        for (let word of set1) {
+            if (set2.has(word)) intersection++;
+        }
+        
+        const union = set1.size + set2.size - intersection;
+        return intersection / union;
+    };
     
     allProducts.forEach(product => {
-        const eanKey = product.ean ? `EAN_${product.ean}` : null;
-        const nameKey = `${normalize(product.brand)}_${normalize(product.name)}`;
-        const groupKey = eanKey || nameKey;
+        // 1. Try to find an existing group that matches
+        let targetGroup = null;
 
-        if (!groupedProducts[groupKey]) {
-            groupedProducts[groupKey] = {
-                id: groupKey,
+        for (let group of groupedGroups) {
+            // Check EAN if both have it
+            if (product.ean && group.ean && product.ean === group.ean) {
+                targetGroup = group;
+                break;
+            }
+            
+            // If no exact EAN match, check if Brands match AND Fuzzy Name similarity > 0.70
+            if (normalize(product.brand) === normalize(group.brand)) {
+                if (calculateSimilarity(product.name, group.name) > 0.70) {
+                    targetGroup = group;
+                    break;
+                }
+            }
+        }
+
+        // 2. If no group found, create a new one
+        if (!targetGroup) {
+            targetGroup = {
+                id: product.id,
                 brand: product.brand,
                 name: product.name,
+                ean: product.ean,
                 vea: { price: null, inStock: false, name: '' },
                 chango: { price: null, inStock: false, name: '' },
                 coope: { price: null, inStock: false, name: '' }
             };
+            groupedGroups.push(targetGroup);
         }
         
-        // If we haven't assigned a product for this supermarket, or if this one is cheaper
-        const currentProd = groupedProducts[groupKey][product.supermarket];
+        // 3. Assign or overwrite to targeted Group if cheaper
+        const currentProd = targetGroup[product.supermarket];
         if (product.price && product.inStock) {
             if (currentProd.price === null || product.price < currentProd.price) {
-                groupedProducts[groupKey][product.supermarket] = {
+                targetGroup[product.supermarket] = {
                     price: product.price,
                     inStock: product.inStock,
                     name: product.name
@@ -112,8 +146,8 @@ app.get(['/api/search', '/search', '/'], async (req, res) => {
         }
     });
 
-    // Convert object to array and filter out products that don't have stock anywhere
-    const sortedProducts = Object.values(groupedProducts).filter(item => 
+    // Filter out products that don't have stock anywhere
+    const sortedProducts = groupedGroups.filter(item => 
         (item.vea.price !== null || item.chango.price !== null || item.coope.price !== null)
     ).sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name));
 
