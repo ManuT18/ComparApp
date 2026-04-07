@@ -20,7 +20,7 @@ header {
 .brand h1 {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #d8b4fe, #9333ea);
+  background: linear-gradient(135deg, #ffffff, var(--accent-color));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -86,7 +86,10 @@ header {
 /* --- PRICE TABLE --- */
 .table-container {
   overflow-x: auto;
+  overflow-y: hidden;
   border-radius: var(--radius-lg);
+  background-color: #1c1e24; /* Gris oscuro para la tabla */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .price-table {
@@ -115,19 +118,35 @@ header {
 
 
 
-.price-table th.col-vea {
-  color: var(--color-vea);
-  border-bottom: 3px solid var(--color-vea);
+/* SUPERMARKET BADGES */
+.sup-badge {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-family: var(--font-outfit);
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.price-table th.col-chango {
-  color: var(--color-chango);
-  border-bottom: 3px solid var(--color-chango);
+.badge-vea {
+  background-color: #FFD100;
+  color: #E31B23;
+  border: 2px solid #FFD100;
 }
 
-.price-table th.col-coope {
-  color: var(--color-coope);
-  border-bottom: 3px solid var(--color-coope);
+.badge-chango {
+  background-color: #007DCE;
+  color: #FFFFFF;
+  border: 2px solid #007DCE;
+}
+
+.badge-coope {
+  background-color: #0D488E;
+  color: #FFFFFF;
+  border: 2px solid #E41E26;
 }
 
 .price-table tbody tr {

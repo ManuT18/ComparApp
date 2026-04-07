@@ -51,9 +51,9 @@ const PriceTable = ({ data }) => {
         <thead>
           <tr>
             <th style={{ width: '25%' }}>Marca / Producto</th>
-            <th className="col-vea" style={{ width: '25%' }}>Supermercados VEA</th>
-            <th className="col-chango" style={{ width: '25%' }}>Chango Más</th>
-            <th className="col-coope" style={{ width: '25%' }}>Cooperativa Obrera</th>
+            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-vea">VEA</div></th>
+            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-chango">Chango Más</div></th>
+            <th style={{ width: '25%', textAlign: 'center' }}><div className="sup-badge badge-coope">Cooperativa</div></th>
           </tr>
         </thead>
         <tbody>
