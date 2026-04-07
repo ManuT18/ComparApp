@@ -8,14 +8,33 @@ function App() {
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [filterMultiple, setFilterMultiple] = useState(false);
+  const [excludeQuery, setExcludeQuery] = useState("");
 
   const displayResults = results.filter(item => {
-    if (!filterMultiple) return true;
-    let count = 0;
-    if (item.vea?.inStock && item.vea?.price !== null) count++;
-    if (item.chango?.inStock && item.chango?.price !== null) count++;
-    if (item.coope?.inStock && item.coope?.price !== null) count++;
-    return count >= 2;
+    // Filtro por supermercados múltiples
+    if (filterMultiple) {
+      let count = 0;
+      if (item.vea?.inStock && item.vea?.price !== null) count++;
+      if (item.chango?.inStock && item.chango?.price !== null) count++;
+      if (item.coope?.inStock && item.coope?.price !== null) count++;
+      if (count < 2) return false;
+    }
+    
+    // Filtro por palabras excluidas
+    if (excludeQuery.trim()) {
+      const negativeWords = excludeQuery.toLowerCase().split(/[\s,]+/).filter(w => w.length > 0);
+      const combinedNames = `
+        ${item.brand || ''} 
+        ${item.vea?.name || ''} 
+        ${item.chango?.name || ''} 
+        ${item.coope?.name || ''}
+      `.toLowerCase();
+      
+      const hasExcluded = negativeWords.some(word => combinedNames.includes(word));
+      if (hasExcluded) return false;
+    }
+    
+    return true;
   });
 
   const handleSearch = async (query) => {
@@ -51,13 +70,22 @@ function App() {
         
         {results.length > 0 && !loading && (
           <div className="filters-container">
+            <div className="exclude-wrapper">
+              <input 
+                type="text" 
+                className="exclude-input"
+                placeholder="Omitir palabras (ej: chocolate, dulce)..."
+                value={excludeQuery}
+                onChange={(e) => setExcludeQuery(e.target.value)}
+              />
+            </div>
             <label className="filter-toggle">
               <input 
                 type="checkbox" 
                 checked={filterMultiple} 
                 onChange={(e) => setFilterMultiple(e.target.checked)} 
               />
-              <span className="toggle-label">Ocultar productos que solo están en 1 supermercado</span>
+              <span className="toggle-label">Solo con competencia (2+ supers)</span>
             </label>
           </div>
         )}
