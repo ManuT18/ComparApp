@@ -1,6 +1,5 @@
-Docs: Actualizar README con nuevas funcionalidades y eliminar seccion de instalacion
+Docs: Simplificar README eliminando texto innecesario
 
-- Se añadió Carrefour a la lista de supermercados oficiales.
-- Se actualizó la descripción de funcionalidades (Agrupamiento Híbrido, Glassmorphism, Tema Cherry).
-- Se eliminó la sección de instalación local a pedido del usuario.
-- Se simplificó la estructura general de la documentación.
+- Se redujo el contenido a puntos clave técnicos y funcionales.
+- Se mantuvo la lista de tecnologías y supermercados.
+- Se eliminó el lenguaje decorativo excesivo.
