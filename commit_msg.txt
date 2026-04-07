@@ -1,6 +1,6 @@
-UI: Agregar footer con el autor y actualizar info de Carrefour en la cabecera
+UI: Responsividad movil completa y Layout de Sticky Footer
 
-- Se añadió un pie de página (footer) con el nombre del autor y la ciudad.
-- Se actualizó la descripción de la cabecera para incluir a Carrefour.
-- Se corrigieron los filtros de búsqueda y exclusión en App.jsx para que ahora también procesen los datos de Carrefour.
-- Se añadieron estilos minimalistas para el footer en App.css.
+- Se implemento un diseño adaptativo mediante Media Queries para optimizar la visualizacion en celulares y tablets.
+- Se configuro un "Sticky Footer" usando Flexbox que se mantiene al final de la pantalla en busquedas cortas y baja con el contenido en busquedas largas.
+- Se ajustaron los tamaños de fuente, paddings y espaciados para dispositivos moviles (header, buscador y filtros apilados).
+- Se activo el scroll suave (touch) en la tabla de precios para mejorar la experiencia en pantallas pequeñas.

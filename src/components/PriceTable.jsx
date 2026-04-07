@@ -56,7 +56,7 @@ const PriceTable = ({ data }) => {
   };
 
   return (
-    <div className="table-container" style={{ marginTop: '2rem' }}>
+    <div className="table-container" style={{ marginTop: '2rem', WebkitOverflowScrolling: 'touch' }}>
       <table className="price-table">
         <thead>
           <tr>

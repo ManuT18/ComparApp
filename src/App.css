@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  flex: 1; /* Allow container to grow within #root */
 }
 
 header {
@@ -293,4 +294,80 @@ header {
   color: var(--text-main);
   font-weight: 500;
 }
-.app-footer { text-align: center; padding: 2rem 0; color: rgba(255, 255, 255, 0.4); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2rem; } .app-footer strong { color: var(--accent-color); font-weight: 700; } 
+.app-footer { 
+  text-align: center; 
+  padding: 2rem 0; 
+  color: rgba(255, 255, 255, 0.4); 
+  font-size: 0.9rem; 
+  border-top: 1px solid rgba(255,255,255,0.05); 
+  margin-top: 2rem; 
+} 
+
+.app-footer strong { 
+  color: var(--accent-color); 
+  font-weight: 700; 
+} 
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .brand h1 {
+    font-size: 2rem;
+  }
+
+  .brand p {
+    font-size: 1rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-button {
+    padding: 1.2rem;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .exclude-wrapper {
+    min-width: auto;
+  }
+
+  .filter-toggle {
+    justify-content: center;
+  }
+
+  .price-table th,
+  .price-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .price-number {
+    font-size: 1.1rem;
+  }
+
+  .price-name {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand h1 {
+    font-size: 1.75rem;
+  }
+
+  .loading-state,
+  .empty-state {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+}
