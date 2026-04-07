@@ -15,7 +15,12 @@ const SUPERMARKETS = [
 async function fetchFromSupermarket(supermarket, query) {
     try {
         const response = await axios.get(`${supermarket.url}${encodeURIComponent(query)}?_from=0&_to=15`, {
-            timeout: 8000
+            timeout: 8000,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json, text/plain, */*',
+                'Referer': 'https://www.google.com/'
+            }
         });
         
         const products = response.data.map(p => {
@@ -48,7 +53,7 @@ async function fetchFromSupermarket(supermarket, query) {
     }
 }
 
-app.get('/api/search', async (req, res) => {
+app.get(['/api/search', '/search', '/'], async (req, res) => {
     const query = req.query.q;
     if (!query) {
         return res.status(400).json({ error: 'Query parameter "q" is required' });
