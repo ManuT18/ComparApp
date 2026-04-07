@@ -20,8 +20,9 @@ header {
 .brand h1 {
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--accent-color), #a855f7);
+  background: linear-gradient(135deg, #d8b4fe, #9333ea);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -1px;
 }
@@ -31,21 +32,7 @@ header {
   font-size: 1.1rem;
 }
 
-.theme-toggle {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  cursor: pointer;
-  font-family: var(--font-inter);
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
 
-.theme-toggle:hover {
-  background: var(--interactive-hover);
-}
 
 /* --- SEARCH BAR --- */
 .search-container {
@@ -120,15 +107,13 @@ header {
   font-size: 1.1rem;
   color: var(--text-muted);
   font-weight: 600;
-  background: rgba(0,0,0,0.02);
+  background: rgba(255, 255, 255, 0.03);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
-[data-theme="dark"] .price-table th {
-  background: rgba(255,255,255,0.02);
-}
+
 
 .price-table th.col-vea {
   color: var(--color-vea);

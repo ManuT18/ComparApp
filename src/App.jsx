@@ -1,22 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import PriceTable from './components/PriceTable';
 import './App.css';
 
 function App() {
-  const [theme, setTheme] = useState('dark');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
-
-  // Apply theme on load
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
 
   const handleSearch = async (query) => {
     if (!query.trim()) return;
@@ -43,9 +33,7 @@ function App() {
           <h1>Analizador de Precios</h1>
           <p>Supermercados en Bahía Blanca: Cooperativa Obrera, Vea y Chango Más</p>
         </div>
-        <button className="theme-toggle" onClick={toggleTheme}>
-          {theme === 'light' ? '🌙 Modo Oscuro' : '☀️ Modo Claro'}
-        </button>
+
       </header>
 
       <main className="glass-panel" style={{ padding: '2rem' }}>
