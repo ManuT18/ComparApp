@@ -1,5 +1,6 @@
-Docs: Simplificar README eliminando texto innecesario
+UI: Ocultar columnas de supermercados sin resultados
 
-- Se redujo el contenido a puntos clave técnicos y funcionales.
-- Se mantuvo la lista de tecnologías y supermercados.
-- Se eliminó el lenguaje decorativo excesivo.
+- Se modificó PriceTable.jsx para detectar dinámicamente qué supermercados tienen al menos un producto con stock y precio en la búsqueda actual.
+- Las columnas de supermercados vacíos (como suele pasar con la Cooperativa Obrera en ciertas búsquedas) ahora se ocultan automáticamente para mantener la tabla compacta.
+- Se corrigió el cálculo del precio más bajo para incluir a Carrefour.
+- Se limpiaron errores de exportación duplicada.

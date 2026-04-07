@@ -16,13 +16,23 @@ const PriceTable = ({ data }) => {
     }).format(price || 0);
   };
 
+  const supermarkets = [
+    { id: 'vea', name: 'VEA', badge: 'badge-vea' },
+    { id: 'chango', name: 'Chango Más', badge: 'badge-chango' },
+    { id: 'carrefour', name: 'Carrefour', badge: 'badge-carrefour' },
+    { id: 'coope', name: 'Cooperativa', badge: 'badge-coope' },
+  ];
+
+  // Only show columns for supermarkets that have at least one product with price and stock
+  const activeSupermarkets = supermarkets.filter(sup => 
+    data.some(item => item[sup.id] && item[sup.id].price !== null && item[sup.id].inStock)
+  );
+
   // Find minimum price for a row to highlight it
   const getMinPrice = (item) => {
-    const prices = [
-      item.vea.inStock ? item.vea.price : null,
-      item.chango.inStock ? item.chango.price : null,
-      item.coope.inStock ? item.coope.price : null,
-    ].filter(p => p !== null);
+    const prices = activeSupermarkets
+      .map(sup => (item[sup.id].inStock ? item[sup.id].price : null))
+      .filter(p => p !== null);
     
     return prices.length > 0 ? Math.min(...prices) : null;
   };
@@ -50,11 +60,12 @@ const PriceTable = ({ data }) => {
       <table className="price-table">
         <thead>
           <tr>
-            <th>Marca / Producto</th>
-            <th><div className="sup-badge badge-vea">VEA</div></th>
-            <th><div className="sup-badge badge-chango">Chango Más</div></th>
-            <th><div className="sup-badge badge-carrefour">Carrefour</div></th>
-            <th><div className="sup-badge badge-coope">Cooperativa</div></th>
+            <th style={{ minWidth: '200px' }}>Marca / Producto</th>
+            {activeSupermarkets.map(sup => (
+              <th key={sup.id} style={{ textAlign: 'center' }}>
+                <div className={`sup-badge ${sup.badge}`}>{sup.name}</div>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -67,10 +78,11 @@ const PriceTable = ({ data }) => {
                   <div>{item.brand}</div>
                   <div style={{fontSize: '0.85rem', fontWeight: 'normal', color: 'var(--text-muted)', marginTop: '0.2rem'}}>{item.name}</div>
                 </td>
-                <td className="price-cell">{renderCell(item.vea, minPrice)}</td>
-                <td className="price-cell">{renderCell(item.chango, minPrice)}</td>
-                <td className="price-cell">{renderCell(item.carrefour, minPrice)}</td>
-                <td className="price-cell">{renderCell(item.coope, minPrice)}</td>
+                {activeSupermarkets.map(sup => (
+                  <td key={sup.id} className="price-cell">
+                    {renderCell(item[sup.id], minPrice)}
+                  </td>
+                ))}
               </tr>
             );
           })}
