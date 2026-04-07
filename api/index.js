@@ -95,7 +95,4 @@ app.get('/api/search', async (req, res) => {
     res.json(sortedBrands);
 });
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`Analizador de Precios Backend running on http://localhost:${PORT}`);
-});
+module.exports = app;

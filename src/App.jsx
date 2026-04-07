@@ -25,8 +25,7 @@ function App() {
     setHasSearched(true);
     
     try {
-      // Connects to local express backend on port 3001
-      const response = await fetch(`http://localhost:3001/api/search?q=${encodeURIComponent(query)}`);
+      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
       const data = await response.json();
       setResults(data);
     } catch (error) {
