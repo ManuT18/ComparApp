@@ -5,11 +5,10 @@ import axios from 'axios';
 const app = express();
 app.use(cors());
 
-// Supermarkets VTEX search base URLs
 const SUPERMARKETS = [
     { id: 'vea', name: 'Vea', url: 'https://www.vea.com.ar/api/catalog_system/pub/products/search/' },
-    { id: 'chango', name: 'Chango Más', url: 'https://www.masonline.com.ar/api/catalog_system/pub/products/search/' },
-    { id: 'coope', name: 'Cooperativa Obrera', url: 'https://www.lacoopeencasa.coop/api/catalog_system/pub/products/search/' }
+    { id: 'chango', name: 'Chango Más', url: 'https://www.masonline.com.ar/api/catalog_system/pub/products/search/' }
+    // { id: 'coope', name: 'Cooperativa Obrera', url: 'https://www.lacoopeencasa.coop/api/catalog_system/pub/products/search/' }
 ];
 
 async function fetchFromSupermarket(supermarket, query) {
