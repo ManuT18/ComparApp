@@ -1,6 +1,6 @@
-UI: Ocultar columnas de supermercados sin resultados
+UI: Agregar footer con el autor y actualizar info de Carrefour en la cabecera
 
-- Se modificó PriceTable.jsx para detectar dinámicamente qué supermercados tienen al menos un producto con stock y precio en la búsqueda actual.
-- Las columnas de supermercados vacíos (como suele pasar con la Cooperativa Obrera en ciertas búsquedas) ahora se ocultan automáticamente para mantener la tabla compacta.
-- Se corrigió el cálculo del precio más bajo para incluir a Carrefour.
-- Se limpiaron errores de exportación duplicada.
+- Se añadió un pie de página (footer) con el nombre del autor y la ciudad.
+- Se actualizó la descripción de la cabecera para incluir a Carrefour.
+- Se corrigieron los filtros de búsqueda y exclusión en App.jsx para que ahora también procesen los datos de Carrefour.
+- Se añadieron estilos minimalistas para el footer en App.css.

@@ -16,6 +16,7 @@ function App() {
       let count = 0;
       if (item.vea?.inStock && item.vea?.price !== null) count++;
       if (item.chango?.inStock && item.chango?.price !== null) count++;
+      if (item.carrefour?.inStock && item.carrefour?.price !== null) count++;
       if (item.coope?.inStock && item.coope?.price !== null) count++;
       if (count < 2) return false;
     }
@@ -27,6 +28,7 @@ function App() {
         ${item.brand || ''} 
         ${item.vea?.name || ''} 
         ${item.chango?.name || ''} 
+        ${item.carrefour?.name || ''} 
         ${item.coope?.name || ''}
       `.toLowerCase();
       
@@ -60,7 +62,7 @@ function App() {
       <header>
         <div className="brand">
           <h1>Analizador de Precios</h1>
-          <p>Supermercados en Bahía Blanca: Cooperativa Obrera, Vea y Chango Más</p>
+          <p>Supermercados en Bahía Blanca: Vea, Chango Más, Carrefour y Cooperativa Obrera</p>
         </div>
 
       </header>
@@ -98,6 +100,10 @@ function App() {
           <div className="empty-state">Ingresa un producto (ej. "leche", "fideos", "harina") para comparar precios.</div>
         )}
       </main>
+
+      <footer className="app-footer">
+        <p>Desarrollado con ❤️ por <strong>Manuel Tauro</strong> — Bahía Blanca, 2026</p>
+      </footer>
     </div>
   );
 }
