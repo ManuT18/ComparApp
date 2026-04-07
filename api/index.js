@@ -49,7 +49,14 @@ async function fetchFromSupermarket(supermarket, query) {
         return products;
     } catch (error) {
         console.error(`Error fetching from ${supermarket.name}:`, error.message);
-        return [];
+        return [{
+            id: 'error',
+            name: `Error de conexión: ${error.message}`,
+            brand: 'SISTEMA',
+            price: 0,
+            inStock: true,
+            supermarket: supermarket.id
+        }];
     }
 }
 
