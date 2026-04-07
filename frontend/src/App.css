@@ -1,0 +1,213 @@
+/* --- ESTILOS APP.JSX --- */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-color), #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+}
+
+.brand p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--interactive-hover);
+}
+
+/* --- SEARCH BAR --- */
+.search-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.25rem;
+  font-family: var(--font-inter);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-main);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.search-button {
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.search-button:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.search-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* --- PRICE TABLE --- */
+.table-container {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.price-table th,
+.price-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.price-table th {
+  font-family: var(--font-outfit);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: rgba(0,0,0,0.02);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+[data-theme="dark"] .price-table th {
+  background: rgba(255,255,255,0.02);
+}
+
+.price-table th.col-vea {
+  color: var(--color-vea);
+  border-bottom: 3px solid var(--color-vea);
+}
+
+.price-table th.col-chango {
+  color: var(--color-chango);
+  border-bottom: 3px solid var(--color-chango);
+}
+
+.price-table th.col-coope {
+  color: var(--color-coope);
+  border-bottom: 3px solid var(--color-coope);
+}
+
+.price-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.price-table tbody tr:hover {
+  background: var(--interactive-hover);
+}
+
+.brand-cell {
+  font-weight: 600;
+  color: var(--text-main);
+  max-width: 250px;
+}
+
+.price-cell {
+  font-family: var(--font-inter);
+}
+
+.price-value-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.price-name {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* STATUS TAGS */
+.tag-out {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: var(--status-out-bg);
+  color: var(--status-out-text);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* BEST PRICE HIGHLIGHT */
+.best-price {
+  background: var(--status-win-bg);
+  color: var(--text-main);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  display: inline-block;
+}
+
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}

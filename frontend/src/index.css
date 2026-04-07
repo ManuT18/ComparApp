@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+  /* MODO CLARO - PALETA PRINCIPAL */
+  --bg-body: #f4f6fa;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-input: #ffffff;
+  --text-main: #1e1e24;
+  --text-muted: #6b7280;
+  
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  --interactive-hover: #f3f4f6;
+  
+  /* ACENTOS GENERALES */
+  --accent-color: #6366f1;
+  --accent-hover: #4f46e5;
+  
+  /* COLORES SUPERMERCADOS */
+  --color-vea: #e63946;
+  --bg-vea-light: rgba(230, 57, 70, 0.1);
+  
+  --color-chango: #1d4ed8;
+  --bg-chango-light: rgba(29, 78, 216, 0.1);
+  
+  --color-coope: #059669;
+  --bg-coope-light: rgba(5, 150, 105, 0.1);
+
+  /* UTILIDADES */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --font-inter: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  
+  /* ESTADO DE PRODUCTO */
+  --status-out-bg: rgba(239, 68, 68, 0.1);
+  --status-out-text: #ef4444;
+  --status-win-bg: rgba(34, 197, 94, 0.15);
+}
+
+[data-theme="dark"] {
+  /* MODO OSCURO - PALETA PRINCIPAL */
+  --bg-body: #0f111a;
+  --bg-card: rgba(25, 28, 41, 0.6);
+  --bg-input: #1a1e2e;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --interactive-hover: rgba(255, 255, 255, 0.05);
+
+  --accent-color: #818cf8;
+  --accent-hover: #6366f1;
+  
+  /* COLORES SUPERMERCADOS ADAPTADOS A DARK */
+  --color-vea: #f87171;
+  --bg-vea-light: rgba(248, 113, 113, 0.15);
+  
+  --color-chango: #60a5fa;
+  --bg-chango-light: rgba(96, 165, 250, 0.15);
+  
+  --color-coope: #34d399;
+  --bg-coope-light: rgba(52, 211, 153, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-outfit);
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Base Glassmorphism classes */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s ease;
+}
